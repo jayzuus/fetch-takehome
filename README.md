@@ -26,4 +26,6 @@ To store receipts, I made a hashmap to account for fast retrievals. The "id" for
 E.g.
 If you create a receipt after starting the application, it's ID will be 0. The next receipt created will have id 1, etc.
 
+*The maximum number of receipts the API can store is 10000000, will return an error if this is exceeded.*
+
 
