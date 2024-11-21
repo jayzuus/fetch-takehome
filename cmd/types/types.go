@@ -4,7 +4,7 @@ import "time"
 
 type ReceiptStore interface {
 	GetReceiptById(key string) (Receipt, error)
-	CreateReceipt (receipt Receipt) (string, error)
+	CreateReceipt(receipt Receipt) (string, error)
 }
 
 type ReceiptService interface {
@@ -13,9 +13,9 @@ type ReceiptService interface {
 }
 
 type Receipt struct {
-	Retailer    string   `json:"retailer"`
+	Retailer    string    `json:"retailer"`
 	PurchasedOn time.Time `json:"purchaseDate"`
-	Items       []Item   `json:"items"`
+	Items       []Item    `json:"items"`
 	Total       float64   `json:"total"`
 }
 type RegisterReceiptPayload struct {

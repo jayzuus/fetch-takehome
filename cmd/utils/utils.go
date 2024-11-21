@@ -38,7 +38,7 @@ func ConvertDateTimeTotal(purchaseDate string, purchaseTime string, total string
 	combined := fmt.Sprintf("%s %s", purchaseDate, purchaseTime)
 
 	combinedTime, _ := time.Parse(combinedFormat, combined)
-	
+
 	floatTotal, _ := strconv.ParseFloat(total, 64)
 
 	return combinedTime, floatTotal
@@ -62,7 +62,7 @@ func validateDateFormat(fl validator.FieldLevel) bool {
 	const dateFormat = "2006-01-02"
 
 	_, err := time.Parse(dateFormat, dateStr)
-	return err == nil 
+	return err == nil
 }
 
 func validateTimeFormat(fl validator.FieldLevel) bool {
@@ -72,7 +72,7 @@ func validateTimeFormat(fl validator.FieldLevel) bool {
 	const timeFormat = "15:04"
 
 	_, err := time.Parse(timeFormat, timeStr)
-	return err == nil 
+	return err == nil
 }
 
 func floatValidator(fl validator.FieldLevel) bool {

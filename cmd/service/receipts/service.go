@@ -1,13 +1,13 @@
 package receipts
 
 import (
+	"errors"
 	"math"
 	"strconv"
 	"strings"
 	"takehome/cmd/types"
 	"time"
 	"unicode"
-	"errors"
 )
 
 var ErrReceiptNotFound = errors.New("receipt not found")
@@ -17,9 +17,8 @@ type ReceiptService struct {
 }
 
 func NewService(rs types.ReceiptStore) *ReceiptService {
-	return &ReceiptService{ store: rs}
+	return &ReceiptService{store: rs}
 }
-
 
 func computePointsAlphanumeric(s string) float64 {
 	points := 0.0
@@ -32,7 +31,7 @@ func computePointsAlphanumeric(s string) float64 {
 }
 
 // If we take the remainder of total % 1, we know the number is round if we get 0
-func computePointsIfRoundTotal (total float64) float64 {
+func computePointsIfRoundTotal(total float64) float64 {
 	if math.Mod(total, 1) == 0 {
 		return 50
 	}
@@ -42,20 +41,20 @@ func computePointsIfRoundTotal (total float64) float64 {
 
 // Since 1/.25 = 4, we can multiply the total by 4 and see if it's a whole number.
 // DOES NOT ACCOUNT FOR OVERFLOW
-func computePointsTotalQuarter (total float64) float64 {
+func computePointsTotalQuarter(total float64) float64 {
 	if math.Mod(total*4, 1) == 0 {
 		return 25.0
-	}	
+	}
 
 	return 0.0
 }
 
-func computePointsForItems(items [] types.Item) float64 {
+func computePointsForItems(items []types.Item) float64 {
 	points := 0.0
 
 	for _, item := range items {
 		trimmedDesc := strings.TrimSpace(item.ShortDescription)
-		if len(trimmedDesc) % 3 == 0 {
+		if len(trimmedDesc)%3 == 0 {
 			price, _ := strconv.ParseFloat(item.Price, 64)
 			points += math.Ceil(price * 0.2)
 		}
@@ -65,14 +64,14 @@ func computePointsForItems(items [] types.Item) float64 {
 
 func computePointsIfDayIsOdd(purchasedOn time.Time) float64 {
 	day := purchasedOn.Day()
-	if day % 2 != 0 {
+	if day%2 != 0 {
 		return 6
 	}
 
 	return 0
 }
 
-func computePointsIfWithinThreshold (purchasedOn time.Time) float64 {
+func computePointsIfWithinThreshold(purchasedOn time.Time) float64 {
 	hour := purchasedOn.Hour()
 	minute := purchasedOn.Minute()
 

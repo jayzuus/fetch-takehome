@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"takehome/cmd/types"
 	"takehome/cmd/utils"
+
 	"github.com/gorilla/mux"
 )
-
 
 type Handler struct {
 	rserv types.ReceiptService
@@ -34,10 +34,10 @@ func (h *Handler) handleReceiptPoints(w http.ResponseWriter, r *http.Request) {
 
 	points, err := h.rserv.GetReceiptPointsById(id)
 	if err != nil {
-        utils.WriteError(w, http.StatusNotFound, err)
-        return
+		utils.WriteError(w, http.StatusNotFound, err)
+		return
 	}
-	res := types.RetrievePointsResponse{Points: fmt.Sprintf("%f",points)}
+	res := types.RetrievePointsResponse{Points: fmt.Sprintf("%f", points)}
 	utils.WriteJSON(w, http.StatusAccepted, res)
 }
 

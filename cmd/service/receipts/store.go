@@ -6,7 +6,8 @@ import (
 	"takehome/cmd/types"
 )
 
-var receipts = make(map[string] types.Receipt)
+var receipts = make(map[string]types.Receipt)
+
 const maxReceipts = "10000000"
 
 type ReceiptStore struct {
@@ -16,7 +17,7 @@ func NewStore() *ReceiptStore {
 	return &ReceiptStore{}
 }
 
-func (rs *ReceiptStore) GetReceiptById (key string) (types.Receipt, error) {
+func (rs *ReceiptStore) GetReceiptById(key string) (types.Receipt, error) {
 	value, exists := receipts[key]
 
 	if !exists {
@@ -26,9 +27,9 @@ func (rs *ReceiptStore) GetReceiptById (key string) (types.Receipt, error) {
 	return value, nil
 }
 
-func (rs *ReceiptStore) CreateReceipt (receipt types.Receipt) (string, error) {
+func (rs *ReceiptStore) CreateReceipt(receipt types.Receipt) (string, error) {
 	id := strconv.Itoa(len(receipts))
-    
+
 	if id == maxReceipts {
 		return "", fmt.Errorf("max number of receipts exceeded")
 	}
